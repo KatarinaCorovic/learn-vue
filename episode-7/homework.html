@@ -1,0 +1,66 @@
+<div id="root">
+    <!-- All tasks  -->
+    <h1>All tasks</h1>
+    <section class="all_tasks">
+        <div class="task" v-for="task in tasks">
+            <label for="task_description" v-text="task.description"></label>
+            <input type="checkbox" v-on:click="checkedTask(task)">
+
+        </div>
+    </section>
+
+    <!-- Incompleted tasks  -->
+    <h2>Incompleted tasks</h2>
+    <section class="all_tasks">
+        <div class="task" v-for="task in incompleteTasks">
+            <label for="task_description" v-text="task.description"></label>
+        </div>
+    </section>
+
+    <!-- Completed tasks  -->
+    <h2>Completed tasks</h2>
+    <section class="all_tasks">
+        <div class="task" v-for="task in completedTasks">
+            <label for="task_description" v-text="task.description"></label>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+
+<script>
+
+
+ let app = new Vue({
+        el: '#root',
+        data: {
+            tasks: [
+                { description: 'Go to the store', completed: true},
+                { description: 'Finish screencast', completed: false},
+                { description: 'Make donation', completed: false},
+                { description: 'Clear inbox', completed: false},
+                { description: 'Make dinner', completed: false},
+                { description: 'Clean room', completed: true}
+            ]
+        },
+        computed: {
+            incompleteTasks() {
+                return this.tasks.filter( task => ! task.completed);
+            },
+            completedTasks() {
+                return this.tasks.filter( task => task.completed);
+            }
+        },
+        methods: {
+            checkedTask(currentTask) {
+                 currentTask.completed = !currentTask.completed;
+            }
+        }
+    });
+
+
+ </script>
+
+
+</body>
+</html>
